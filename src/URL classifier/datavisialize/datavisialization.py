@@ -5,6 +5,7 @@ import random
 import joblib
 import urllib
 from features import *
+import seaborn as sns
 df = pd.read_csv('../data/urldata9.csv')
 prepare_pipeline = joblib.load('finalvectorizer.pkl')
 forest = joblib.load('finalforest.pkl')
@@ -25,4 +26,18 @@ xlabel = ['length','domainLengh','pathlength','topdomain','#','num_path','num_su
 pyplot.bar(xlabel, importances)
 pyplot.xticks(rotation=90)
 #pyplot.xticks(range(X.shape[1]), importances)
+pyplot.show()
+
+df = pd.DataFrame(X_afterpipeline, columns = ['length','domainLengh','pathlength','topdomain','#','num_path','num_subdoamin',
+          'percent', 'at', 'euqal', 'letterNum', 'digitNUm', 'useIP', 'doubleslash','redirect',
+          'shortenURL', 'SSL', 'age',' expire', 'update', 'response', 'ranking'])
+df['result'] = y
+corrmat = df.corr()
+f, ax = pyplot.subplots(figsize=(100,100))
+pyplot.xticks(rotation=90)
+yticks = ['length','domainLengh','pathlength','topdomain','#','num_path','num_subdoamin',
+          'percent', 'at', 'euqal', 'letterNum', 'digitNUm', 'useIP', 'doubleslash','redirect',
+          'shortenURL', 'SSL', 'age',' expire', 'update', 'response', 'ranking','result']
+sns.heatmap(corrmat, square=True, annot = True, yticklabels=yticks,annot_kws={'size':5})
+pyplot.yticks(rotation=0)
 pyplot.show()
