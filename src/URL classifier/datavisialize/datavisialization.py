@@ -5,7 +5,7 @@ import random
 import joblib
 import urllib
 from features import *
-df = pd.read_csv('../urldata9.csv')
+df = pd.read_csv('../data/urldata9.csv')
 prepare_pipeline = joblib.load('finalvectorizer.pkl')
 forest = joblib.load('finalforest.pkl')
 X = df.loc[:, ['url', 'whois','shorten','age','response','alexa','update','expire']]
