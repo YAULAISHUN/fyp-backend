@@ -138,4 +138,6 @@ dmypy.json
 cython_debug/
 
 # models
-src/models/randomForest.pkl
+src/models_old/
+
+main_old.py
