@@ -12,6 +12,8 @@ from blacklist import *
 
 from flask_cors import CORS
 
+import re
+
 # app configuration
 app = flask.Flask(__name__)
 app.config["DEBUG"] = True
@@ -88,6 +90,10 @@ def classify():
     #         response["predict"][index]["explanation"] = f"The {listOfModels[index]} model predicts the input URL is a malicious URL"
     #     else:
     #         response["predict"][index]["explanation"] = f"The {listOfModels[index]} model predicts the input URL is a benign URL"
+
+    # validate url
+    if not re.match('(?:http|ftp|https)://', url):
+        url = 'http://{}'.format(url)
 
     # check blacklist
     isBlacklist = blacklist(url)
